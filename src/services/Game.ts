@@ -18,7 +18,6 @@ export class Game {
             this.round++;
             this.logger.log(`\n=== Раунд ${this.round} ===`);
 
-            // Перемешиваем героев для случайных пар
             const shuffled = [...this.heroes];
             for (let i = shuffled.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
@@ -52,11 +51,9 @@ export class Game {
 
         while (h1.isAliveFlag() && h2.isAliveFlag()) {
             turn++;
-            // Ход первого
             if (h1.isAliveFlag()) {
                 this.makeTurn(h1, h2, turn);
             }
-            // Ход второго
             if (h2.isAliveFlag()) {
                 this.makeTurn(h2, h1, turn);
             }
@@ -69,7 +66,7 @@ export class Game {
     }
 
     private makeTurn(attacker: Hero, defender: Hero, turn: number): void {
-        const isSpecial = Math.random() < 0.5; // 50% на использование способности
+        const isSpecial = Math.random() < 0.5;
         let damage = 0;
         let logMessage = '';
 
@@ -87,5 +84,9 @@ export class Game {
         if (!defender.isAliveFlag()) {
             this.logger.log(`${defender.getType()} ${defender.getName()} погибает`);
         }
+    }
+
+    public getRemainingHeroesCount(): number {
+        return this.heroes.length;
     }
 }
